@@ -1,0 +1,23 @@
+services:
+  sakila-db:
+    image: rahib685/sakila-db:latest
+    environment:
+      MYSQL_DATABASE: sakila
+      MYSQL_USER: rahib
+      MYSQL_PASSWORD: rahib123
+    ports:
+      - "3307:3306"
+
+  api:
+    image: rahib685/imdbapi:latest
+    environment:
+      ENV: DEV
+      DB_HOST: sakila-db
+      DB_USER: rahib
+      DB_PASS: rahib123
+      DB_NAME: sakila
+    ports:
+      - "5000:5000"
+    depends_on:
+      - sakila-db
+
